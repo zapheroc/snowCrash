@@ -31,13 +31,11 @@ void extractSnowCrash(string fileName) {
 
     ofstream outData("decodedSnow.txt", ios::binary);
     CImg<unsigned char> img(fileName.c_str());
-    char *ar = new char[3*img.height()*img.width()];
     for (unsigned int h = 0; h < img.height(); h++) {
         for (unsigned int w = 0; w < img.width(); w++) {
             outData << img(w, h, 2);
         }
     }
-    delete[] ar;
 }
 
 void createSnowCrash(string fileName, string outputName) {
