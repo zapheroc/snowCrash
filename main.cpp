@@ -7,6 +7,8 @@
 
 using namespace std;
 
+const char *endOfSnowCrash = "__!END!__!OF!__!SNOWCRASH!__";
+
 void createSnowCrash(string fileName, string outputName = "snowCrash.png");
 void extractSnowCrash(string fileName);
 void parseArguments(int, char *[], string &, string &);
@@ -31,8 +33,14 @@ void extractSnowCrash(string fileName) {
 
     ofstream outData("decodedSnow.txt", ios::binary);
     CImg<unsigned char> img(fileName.c_str());
-    for (unsigned int h = 0; h < img.height(); h++) {
-        for (unsigned int w = 0; w < img.width(); w++) {
+    for (int h = 0; h < img.height(); h++) {
+        for (int w = 0; w < img.width(); w++) {
+            if (img(w,h, 2) == '_') {
+                const char *ar = reinterpret_cast<const char *>(img.data(w,h,0,2));
+                if (strncmp(ar, endOfSnowCrash, strlen(endOfSnowCrash)) == 0) {
+                    return;
+                }
+            }
             outData << img(w, h, 2);
         }
     }
@@ -47,7 +55,6 @@ void createSnowCrash(string fileName, string outputName) {
     id = fileName + id;
 
 
-
     ifstream inData(fileName, ios::binary|ios::ate);
 
     if (!inData) {
@@ -56,9 +63,10 @@ void createSnowCrash(string fileName, string outputName) {
     }
 
     ifstream::pos_type pos = inData.tellg();
-    vector<char> result(pos);
+    vector<char> result( static_cast<long>(pos) + strlen(endOfSnowCrash) );
     inData.seekg(0, ios::beg);
     inData.read(result.data(), pos);
+    result.insert(result.end() - strlen(endOfSnowCrash), endOfSnowCrash, endOfSnowCrash+strlen(endOfSnowCrash));
 
     unsigned int imageWidth = 0;
     unsigned int imageHeight = 0;
@@ -86,6 +94,7 @@ void createSnowCrash(string fileName, string outputName) {
         arrayPos++;
         }
     }
+    cout << " Image creation complete. Now writing image to file format requested. " << endl;
     img.save_png(outputName.c_str());
 }
 
