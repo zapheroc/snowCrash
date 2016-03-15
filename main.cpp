@@ -13,7 +13,6 @@ const string EMPTY_STRING = "//empty\\";
 
 void createSnowCrash(string fileName, string outputName = "snowCrash.png");
 void extractSnowCrash(string fileName, string outputFile);
-//void parseArguments(int, char *[], string &, string &);
 
 int main(int argc, char *argv[]) {
 
