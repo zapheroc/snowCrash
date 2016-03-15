@@ -4,46 +4,84 @@
 #include <cstdlib> // for the exit function
 #include <vector>
 #include <math.h>
+#include <getopt.h>
 
 using namespace std;
 
-const char *endOfSnowCrash = "__!END!__!OF!__!SNOWCRASH!__";
+const char *END_OF_SNOWCRASH = "__!END!__!OF!__!SNOWCRASH!__";
+const string EMPTY_STRING = "//empty\\";
 
 void createSnowCrash(string fileName, string outputName = "snowCrash.png");
-void extractSnowCrash(string fileName);
-void parseArguments(int, char *[], string &, string &);
+void extractSnowCrash(string fileName, string outputFile);
+//void parseArguments(int, char *[], string &, string &);
 
 int main(int argc, char *argv[]) {
 
-    if (argc > 2) {
-    string inputFile = "//empty\\";
-    string outputFile = "//empty\\";
-    parseArguments(argc, argv, inputFile, outputFile);
+    int opt;
+    string inputFile = EMPTY_STRING;
+    string outputFile = EMPTY_STRING;
+    string extractFile = EMPTY_STRING;
+
+    while ((opt = getopt(argc, argv, "i:o:e:")) != -1) {
+        switch (opt) {
+            case 'i':
+                inputFile = optarg;
+                break;
+            case 'o':
+                outputFile = optarg;
+                break;
+            case 'e':
+                extractFile = optarg;
+                break;
+            default:
+                cerr << "No required options specified" << endl;
+        }
+    }
+
+    /* CHECK IF FILE ALREADY EXISTS TO PREVENT DESTROYING USERS FILES */
+    ifstream does_exist(outputFile);
+    if (does_exist) {
+        string response = "";
+        cout << "File exists. Overwrite? (y/n): ";
+        cin >> response;
+        if (response != "y" && response != "Y") {
+            cerr << "Aborted " << endl;
+            exit(1);
+        }
+    }
+    does_exist.close();
+
+    if (inputFile != EMPTY_STRING && outputFile != EMPTY_STRING) {
         createSnowCrash(inputFile, outputFile);
     }
+    else if (extractFile != EMPTY_STRING && outputFile != EMPTY_STRING) {
+        extractSnowCrash(extractFile, outputFile);
+    }
     else {
-        extractSnowCrash(argv[1]);
+        cerr << "Missing required flags for operation. Please see the manual that does not exist at the time of writing this error message" << endl;
     }
     return 0;
 }
 
-void extractSnowCrash(string fileName) {
+void extractSnowCrash(string fileName, string outputFile) {
 
     using namespace cimg_library;
 
-    ofstream outData("decodedSnow.txt", ios::binary);
+    ofstream outData(outputFile, ios::binary);
+
     CImg<unsigned char> img(fileName.c_str());
     for (int h = 0; h < img.height(); h++) {
         for (int w = 0; w < img.width(); w++) {
             if (img(w,h, 2) == '_') {
                 const char *ar = reinterpret_cast<const char *>(img.data(w,h,0,2));
-                if (strncmp(ar, endOfSnowCrash, strlen(endOfSnowCrash)) == 0) {
+                if (strncmp(ar, END_OF_SNOWCRASH, strlen(END_OF_SNOWCRASH)) == 0) {
                     return;
                 }
             }
             outData << img(w, h, 2);
         }
     }
+
 }
 
 void createSnowCrash(string fileName, string outputName) {
@@ -63,10 +101,10 @@ void createSnowCrash(string fileName, string outputName) {
     }
 
     ifstream::pos_type pos = inData.tellg();
-    vector<char> result( static_cast<long>(pos) + strlen(endOfSnowCrash) );
+    vector<char> result( static_cast<long>(pos) + strlen(END_OF_SNOWCRASH) );
     inData.seekg(0, ios::beg);
     inData.read(result.data(), pos);
-    result.insert(result.end() - strlen(endOfSnowCrash), endOfSnowCrash, endOfSnowCrash+strlen(endOfSnowCrash));
+    result.insert(result.end() - strlen(END_OF_SNOWCRASH), END_OF_SNOWCRASH, END_OF_SNOWCRASH+strlen(END_OF_SNOWCRASH));
 
     unsigned int imageWidth = 0;
     unsigned int imageHeight = 0;
@@ -79,7 +117,7 @@ void createSnowCrash(string fileName, string outputName) {
     }
 
     imageHeight = imageWidth;
-    //Replace magic number 3 with RBG!
+
     while (imageWidth * imageHeight < result.size()) {
         imageHeight++;
     }
@@ -94,23 +132,6 @@ void createSnowCrash(string fileName, string outputName) {
         arrayPos++;
         }
     }
-    cout << " Image creation complete. Now writing image to file format requested. " << endl;
+    cout << "Image creation complete. Now writing image to file format requested. " << endl;
     img.save_png(outputName.c_str());
-}
-
-void parseArguments(int argc, char *argv[], string &inputFile, string &outputFile) {
-
-    for (int arg = 0; arg < argc; arg++) {
-        if (strcmp(argv[arg], "-i") == 0) {
-            inputFile = argv[arg + 1];
-        }
-        else if (strcmp(argv[arg], "-o") == 0) {
-            outputFile = argv[arg + 1];
-        }
-    }
-
-    if (inputFile == "//empty\\" || outputFile == "//empty\\") {
-        cerr << "No file given for input/output. Use -i for input, and -o for output" << endl;
-        exit(1);
-    }
 }
