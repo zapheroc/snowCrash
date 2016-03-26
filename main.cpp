@@ -9,6 +9,7 @@
 using namespace std;
 
 const char *END_OF_SNOWCRASH = "__!END!__!OF!__!SNOWCRASH!__";
+const string VERSION = "1.0";
 const string EMPTY_STRING = "//empty\\";
 
 void createSnowCrash(string fileName, string outputName = "snowCrash.png");
@@ -21,7 +22,7 @@ int main(int argc, char *argv[]) {
     string outputFile = EMPTY_STRING;
     string extractFile = EMPTY_STRING;
 
-    while ((opt = getopt(argc, argv, "i:o:e:")) != -1) {
+    while ((opt = getopt(argc, argv, "i:o:e:vh")) != -1) {
         switch (opt) {
             case 'i':
                 inputFile = optarg;
@@ -32,6 +33,12 @@ int main(int argc, char *argv[]) {
             case 'e':
                 extractFile = optarg;
                 break;
+            case 'v':
+                cout << "SnowCrash Version " << VERSION << endl;
+                return 0;
+            case 'h':
+                cout << "Use -e to extract, -i to input, and -o to specify output for both." << endl;
+                return 0;
             default:
                 cerr << "No required options specified" << endl;
         }
@@ -57,7 +64,7 @@ int main(int argc, char *argv[]) {
         extractSnowCrash(extractFile, outputFile);
     }
     else {
-        cerr << "Missing required flags for operation. Please see the manual that does not exist at the time of writing this error message" << endl;
+        cerr << "Missing required flags for operation. Use -e to extract, -i to input, and -o to specify output for both" << endl;
     }
     return 0;
 }
