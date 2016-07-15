@@ -5,6 +5,8 @@
 #include <vector>
 #include <math.h>
 #include <getopt.h>
+#include "FileParser.h"
+#include "ImageManipulator.h"
 
 using namespace std;
 
@@ -57,6 +59,20 @@ int main(int argc, char *argv[]) {
     }
     does_exist.close();
 
+    FileParser *testFileData = new FileParser(inputFile);
+    cout << "The file size is " << testFileData->fileSize << " bytes \n" << "The first byte of data " << testFileData->dataFileVector.at(0) << endl;
+    cout << "Required number of pixels for data given: " << testFileData->estimateImageSizeData(1.0) << endl;
+    float sz = testFileData->estimateImageSizeData(1.0f);
+    string ss = "Rame.JPG";
+
+    ImageManipulator *testManipulator = new ImageManipulator();
+
+    testManipulator->scaleImageForData(ss, sz);
+    testFileData->generateRandomPixelArray();
+
+    //testFileData->scaleImageForData(ss, sz);
+
+    /*
     if (inputFile != EMPTY_STRING && outputFile != EMPTY_STRING) {
         createSnowCrash(inputFile, outputFile);
     }
@@ -67,6 +83,7 @@ int main(int argc, char *argv[]) {
         cerr << "Missing required flags for operation. Use -e to extract, -i to input, and -o to specify output for both" << endl;
     }
     return 0;
+    */
 }
 
 void extractSnowCrash(string fileName, string outputFile) {
@@ -110,6 +127,7 @@ void createSnowCrash(string fileName, string outputName) {
     vector<char> result( static_cast<long>(pos) + strlen(END_OF_SNOWCRASH) );
     inData.seekg(0, ios::beg);
     inData.read(result.data(), pos);
+    inData.close();
     result.insert(result.end() - strlen(END_OF_SNOWCRASH), END_OF_SNOWCRASH, END_OF_SNOWCRASH+strlen(END_OF_SNOWCRASH));
 
     unsigned int imageWidth = 0;
