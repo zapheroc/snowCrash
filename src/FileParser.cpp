@@ -30,40 +30,22 @@ float FileParser::estimateImageSizeData( float ratioData = 1.0) {
     return (fileSize / ratioData) / 3;
 }
 
-void FileParser::generateRandomPixelArray() {
-
-    const int vlength = dataFileVector.size();
-    int *positions = new int[vlength];
-
-    for (int i = 0; i < vlength; i++) {
-        positions[i] = i;
-    }
-
-    cout << positions[0] << " " << positions[11] << " " << positions[vlength - 1] << endl;
-
-
-}
-
-
-/*
-void FileParser::scaleImageForData( string imageName, float fileSize ) {
-
+void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed ) {
     using namespace cimg_library;
-    CImg<unsigned char> img(imageName.c_str());
 
-    if ( (img.width() * img.height() ) <= fileSize ) {
+    int imgSize = img.size() - 1;
 
-    unsigned int finalHeight = ceil(sqrt((fileSize*img.height())/img.width()));
-    unsigned int finalWidth = ceil(sqrt((fileSize*img.width())/img.height()));
+    randomPixelArray.resize(imgSize);
 
-    cout << " OWidth " << img.width() << " OHeight " << img.height() << endl;
-    cout << " Width " << finalWidth << " height " << finalHeight << endl;
-    img.resize(finalWidth, finalHeight);
-    img.save_png("scaledForData001.png");
-
+    for (unsigned int i = 0; i < imgSize; i++) {
+        randomPixelArray[i] = i;
     }
+
+    mt19937 engine(seed);
+    shuffle(randomPixelArray.begin(), randomPixelArray.end(), engine);
+    randomPixelArray.resize(dataFileVector.size());
 }
-*/
+
 FileParser::~FileParser()
 {
     //dtor

@@ -3,7 +3,6 @@
 
 #include "CImg.h"
 
-
 #include <fstream>
 #include <vector>
 #include <iostream>
@@ -19,6 +18,7 @@ class ImageManipulator
         void scaleImageForData( std::string imageName, float fileSize );
         void createSnowCrash( std::string fileName, std::string outputName);
         void extractSnowCrash( std::string fileName, std::string outputFile);
+        void seedImage(std::vector<unsigned long> &randomPixelArray, std::vector<char> &dataFileVector);
 
         cimg_library::CImg<unsigned char> img;
     protected:

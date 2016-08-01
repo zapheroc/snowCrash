@@ -62,13 +62,15 @@ int main(int argc, char *argv[]) {
     FileParser *testFileData = new FileParser(inputFile);
     cout << "The file size is " << testFileData->fileSize << " bytes \n" << "The first byte of data " << testFileData->dataFileVector.at(0) << endl;
     cout << "Required number of pixels for data given: " << testFileData->estimateImageSizeData(1.0) << endl;
-    float sz = testFileData->estimateImageSizeData(1.0f);
+    float fileSize = testFileData->estimateImageSizeData(0.35f);
+    cout << "File Size at given ratio: " << fileSize << endl;
     string ss = "Rame.JPG";
 
     ImageManipulator *testManipulator = new ImageManipulator();
 
-    testManipulator->scaleImageForData(ss, sz);
-    testFileData->generateRandomPixelArray();
+    testManipulator->scaleImageForData(ss, fileSize);
+    testFileData->generateRandomPixelArray(testManipulator->img, 20);
+    testManipulator->seedImage(testFileData->randomPixelArray, testFileData->dataFileVector);
 
     //testFileData->scaleImageForData(ss, sz);
 

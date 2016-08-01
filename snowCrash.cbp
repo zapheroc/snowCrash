@@ -14,9 +14,10 @@
 				<Option parameters="-i Rame.JPG -o snowCrash.png" />
 				<Compiler>
 					<Add option="-std=c++11" />
-					<Add option="-lX11" />
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-lX11" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -27,6 +28,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-lX11" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -48,8 +50,12 @@
 			<Add option="-Dcimg_use_png" />
 			<Add option="-lpng" />
 		</Linker>
-		<Unit filename="CImg.h" />
-		<Unit filename="main.cpp" />
+		<Unit filename="include/CImg.h" />
+		<Unit filename="include/FileParser.h" />
+		<Unit filename="include/ImageManipulator.h" />
+		<Unit filename="src/FileParser.cpp" />
+		<Unit filename="src/ImageManipulator.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Unit filename="testText.txt">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

@@ -24,8 +24,12 @@ void ImageManipulator::scaleImageForData( string imageName, float fileSize ) {
     cout << " OWidth " << img.width() << " OHeight " << img.height() << endl;
     cout << " Width " << finalWidth << " height " << finalHeight << endl;
     img.resize(finalWidth, finalHeight);
-    img.save_png("scaledForData001.png");
 
+    //img.save_png("scaledForData001.png");
+
+    }
+    else {
+        cout << "Image did not need resizing: w*h=" << img.width() * img.height() << endl;
     }
 }
 
@@ -103,6 +107,16 @@ void ImageManipulator::createSnowCrash(string fileName, string outputName) {
     img.save_png(outputName.c_str());
 }
 
+void ImageManipulator::seedImage(vector<unsigned long> &randomPixelArray, vector<char> &dataFileVector) {
+
+    unsigned char *pixel = img.data();
+    cout << "Scaled image size: " << img.size() << " File to embed size: " << dataFileVector.size() << endl;
+    for (unsigned int i = 0; i < dataFileVector.size(); i++) {
+        *(pixel+randomPixelArray.at(i)) = dataFileVector.at(i);
+    }
+    cout << " loop finished " << endl;
+    img.save_png("new_seeded_image_not_finished.png");
+}
 
 ImageManipulator::~ImageManipulator()
 {

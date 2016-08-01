@@ -9,7 +9,7 @@
 #include <iostream> // for debugging. Remove later
 #include <cstring> // check if this is needed
 #include <cmath> // for sqrt()
-
+#include "CImg.h"
 
 class FileParser
 {
@@ -17,14 +17,15 @@ class FileParser
         FileParser(std::string fileName);
         virtual ~FileParser();
         float estimateImageSizeData( float ratioData );
-        void generateRandomPixelArray();
+        void generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed);
        // void scaleImageForData( std::string imageName, float fileSize );
 
         const char *END_OF_SNOWCRASH = "__!END!__!OF!__!SNOWCRASH!__";
         std::vector<char> dataFileVector;
+        std::vector<unsigned long> randomPixelArray;
         long fileSize;
     protected:
-        std::vector<int> randomPixelArray;
+        //std::vector<int> randomPixelArray;
     private:
 };
 
