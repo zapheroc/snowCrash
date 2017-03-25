@@ -2,6 +2,7 @@
 #define IMAGEMANIPULATOR_H
 
 #include "CImg.h"
+#include "FileParser.h"
 
 #include <fstream>
 #include <vector>
@@ -13,12 +14,16 @@ class ImageManipulator
 {
     public:
         ImageManipulator();
+        ImageManipulator(std::string imageName);
         virtual ~ImageManipulator();
 
-        void scaleImageForData( std::string imageName, float fileSize );
+        void extractSeededImage( std::string outputFile, long seed);
+        void scaleImageForData( float fileSize );
         void createSnowCrash( std::string fileName, std::string outputName);
         void extractSnowCrash( std::string fileName, std::string outputFile);
-        void seedImage(std::vector<unsigned long> &randomPixelArray, std::vector<char> &dataFileVector);
+        void seedImage(std::vector<unsigned long> &randomPixelArray, std::vector<char> &dataFileVector, std::string outputFile);
+        void addNoise(double sigma, unsigned int type);
+
 
         cimg_library::CImg<unsigned char> img;
     protected:

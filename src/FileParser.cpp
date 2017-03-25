@@ -3,6 +3,12 @@
 
 using namespace std;
 
+
+FileParser::FileParser()
+{
+    return;
+}
+
 FileParser::FileParser(string fileName )
 {
    ifstream inData(fileName, ios::binary|ios::ate);
@@ -13,12 +19,22 @@ FileParser::FileParser(string fileName )
     }
 
     ifstream::pos_type pos = inData.tellg();
-    dataFileVector.resize( static_cast<long>(pos) + strlen(END_OF_SNOWCRASH) );
+    dataFileVector.resize( static_cast<long>(pos) + LONG_LENGTH );
     inData.seekg(0, ios::beg);
-    inData.read(dataFileVector.data(), pos);
+    inData.read(dataFileVector.data() + LONG_LENGTH, pos);
     inData.close();
-    dataFileVector.insert(dataFileVector.end() - strlen(END_OF_SNOWCRASH), END_OF_SNOWCRASH, END_OF_SNOWCRASH+strlen(END_OF_SNOWCRASH));
+
     fileSize = dataFileVector.size();
+
+    cout << "file size is: " << fileSize - LONG_LENGTH << endl;
+    unsigned char fileSizeAsArrayOfBytes[LONG_LENGTH];
+    longToBytes(fileSize - LONG_LENGTH, fileSizeAsArrayOfBytes);
+    for (int i = 0; i < LONG_LENGTH; i++) {
+        dataFileVector.at(i) = fileSizeAsArrayOfBytes[i];
+        //cout << "The byte written to the start was: " << static_cast<int>(fileSizeAsArrayOfBytes[i]) << endl;
+    }
+    //cout << "First element of actual file is: " << dataFileVector.at(8) << endl;
+
 }
 
 float FileParser::estimateImageSizeData( float ratioData = 1.0) {
@@ -33,17 +49,41 @@ float FileParser::estimateImageSizeData( float ratioData = 1.0) {
 void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed ) {
     using namespace cimg_library;
 
-    int imgSize = img.size() - 1;
-
+    unsigned long imgSize = img.size() - 1;
+    cout << "The image size for random generation was: " << imgSize << endl;
     randomPixelArray.resize(imgSize);
 
-    for (unsigned int i = 0; i < imgSize; i++) {
+    for (unsigned long i = 0; i < imgSize; i++) {
         randomPixelArray[i] = i;
     }
 
     mt19937 engine(seed);
     shuffle(randomPixelArray.begin(), randomPixelArray.end(), engine);
-    randomPixelArray.resize(dataFileVector.size());
+    //THIS IS THE PROBLEM, without if statement, it clipped to zero on extraction
+    if (dataFileVector.size() > 0) {
+        randomPixelArray.resize(dataFileVector.size());
+    }
+    cout << "Random Pixel Array Size: " << randomPixelArray.size() << endl;
+}
+
+void FileParser::longToBytes(unsigned long n, unsigned char ar[sizeof(unsigned long)]) {
+    for (int i = 0; i < LONG_LENGTH; i++) {
+        ar[i] = (n >> i*8) & 0xFF;
+    }
+}
+
+unsigned long FileParser::bytesToLong(unsigned char n[sizeof(unsigned long)]) {
+    unsigned long r = 0;
+    for (int i = 0; i < LONG_LENGTH; i++) {
+      //  cout << "pos " << i << endl;
+      //  cout << "array value: " << static_cast<int>(n[i]) << endl;
+        r = (r | n[(LONG_LENGTH-1)-i]);
+      //  cout << "r value: " << r << endl;
+        if (i != LONG_LENGTH - 1) {
+            r = (r << 8);
+        }
+    }
+    return r;
 }
 
 FileParser::~FileParser()

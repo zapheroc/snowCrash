@@ -276,7 +276,7 @@
 	"CImg.h"
 	<stdint.h>
 
-1470026611 /home/aprice/github/snowCrash/include/FileParser.h
+1471299913 /home/aprice/github/snowCrash/include/FileParser.h
 	<algorithm>
 	<random>
 	<fstream>
@@ -286,8 +286,9 @@
 	<cmath>
 	"CImg.h"
 
-1470026625 /home/aprice/github/snowCrash/include/ImageManipulator.h
+1490401475 /home/aprice/github/snowCrash/include/ImageManipulator.h
 	"CImg.h"
+	"FileParser.h"
 	<fstream>
 	<vector>
 	<iostream>
@@ -348,14 +349,14 @@
 	"CImg.h"
 	<stdint.h>
 
-1470027927 source:/home/aprice/github/snowCrash/src/ImageManipulator.cpp
+1490402100 source:/home/aprice/github/snowCrash/src/ImageManipulator.cpp
 	"ImageManipulator.h"
 
-1470026804 source:/home/aprice/github/snowCrash/src/FileParser.cpp
+1490407057 source:/home/aprice/github/snowCrash/src/FileParser.cpp
 	"FileParser.h"
 	"CImg.h"
 
-1470027707 source:/home/aprice/github/snowCrash/src/main.cpp
+1490402301 source:/home/aprice/github/snowCrash/src/main.cpp
 	<iostream>
 	"CImg.h"
 	<fstream>
@@ -365,4 +366,5 @@
 	<getopt.h>
 	"FileParser.h"
 	"ImageManipulator.h"
+	<stdlib.h>
 

@@ -15,12 +15,16 @@ class FileParser
 {
     public:
         FileParser(std::string fileName);
+        FileParser();
         virtual ~FileParser();
         float estimateImageSizeData( float ratioData );
         void generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed);
+        void longToBytes(unsigned long n, unsigned char ar[sizeof(unsigned long)]);
+        unsigned long bytesToLong(unsigned char n[sizeof(unsigned long)]);
        // void scaleImageForData( std::string imageName, float fileSize );
 
         const char *END_OF_SNOWCRASH = "__!END!__!OF!__!SNOWCRASH!__";
+        const int LONG_LENGTH = sizeof(unsigned long);
         std::vector<char> dataFileVector;
         std::vector<unsigned long> randomPixelArray;
         long fileSize;
