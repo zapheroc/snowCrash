@@ -276,9 +276,9 @@
 	"CImg.h"
 	<stdint.h>
 
-1490461310 /home/aprice/github/snowCrash/include/FileParser.h
+1490463762 /home/aprice/github/snowCrash/include/FileParser.h
 	<algorithm>
-	<boost/random/mersenne_twister.hpp>
+	<boost/random.hpp>
 	<fstream>
 	<vector>
 	<iostream>
@@ -352,7 +352,7 @@
 1490402100 source:/home/aprice/github/snowCrash/src/ImageManipulator.cpp
 	"ImageManipulator.h"
 
-1490407057 source:/home/aprice/github/snowCrash/src/FileParser.cpp
+1490464778 source:/home/aprice/github/snowCrash/src/FileParser.cpp
 	"FileParser.h"
 	"CImg.h"
 

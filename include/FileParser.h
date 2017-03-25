@@ -2,7 +2,7 @@
 #define FILEPARSER_H
 
 #include <algorithm> // for std::shuffle
-#include <boost/random/mersenne_twister.hpp>
+#include <boost/random.hpp>
 
 // THIS DOES NOT ACTUALLY CREATE GOOD RANDOM NUMBERS
 //#include <random> // for the uniform random number generators
