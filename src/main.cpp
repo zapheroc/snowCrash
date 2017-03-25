@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
                 break;
             case 'p':
                 percent = atof(optarg);
-                cout << percent << " precent" << endl;
+                cout << percent << " ratio" << endl;
                 break;
             case 'i':
                 inputImage = optarg;
