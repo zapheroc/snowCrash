@@ -2,9 +2,10 @@
 #define FILEPARSER_H
 
 #include <algorithm> // for std::shuffle
+
+// Stopped using boost because C++11 random works fine platform independant, if you use the same compiler.
 //#include <boost/random.hpp>
 
-// THIS DOES NOT ACTUALLY CREATE GOOD RANDOM NUMBERS
 #include <random> // for the uniform random number generators
 
 #include <fstream> // for input and output streams

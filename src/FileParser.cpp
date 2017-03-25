@@ -57,8 +57,8 @@ void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char
         randomPixelArray[i] = i;
     }
 
+    // AN EXAMPLE OF HOW BOOST WAS USED BEFORE BECOMING UNNECESSARY
     //boost::random::mt19937 engine(seed);
-
     //boost::variate_generator<boost::mt19937&, boost::uniform_int<> > random_number_shuffler(engine, boost::uniform_int<>());
     //std::random_shuffle(randomPixelArray.begin(), randomPixelArray.end(), random_number_shuffler);
 
