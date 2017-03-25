@@ -73,10 +73,7 @@ void ImageManipulator::extractSeededImage(string outputFile, long seed) {
 void ImageManipulator::addNoise(double sigma, unsigned int type) {
 
     cout << "Adding noise." << endl;
-    if (type < 0) {
-        type = 0;
-    }
-    else if (type > 4) {
+    if (type > 4) {
         type = 4;
     }
 
