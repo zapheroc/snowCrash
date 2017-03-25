@@ -31,6 +31,13 @@ int main(int argc, char *argv[]) {
     double noise = 0;
     bool addNoise = false;
 
+    string help = "To extract, provide only an input and output, along with a seed. \nUseage:  \n-i to specify input file. \n-o to specify output file. \n-d to specify data file to place into the image. \n-s to specify seed, default is 20. This can be any integer. \
+                \n-p to specify image density, default is 1. This must be between 0-1. \n-n to specify amount of noise to autogenerate. Default is 0. \n-t specify the type of noise. 0=gaussian, 1=uniform, 2=Salt and Pepper, 3=Poisson or 4=Rician.";
+
+
+    if (argc == 1) {
+        cout << help << endl;
+    }
 
     // Process the input arguments, and store them in the appropriate variables.
     while ((opt = getopt(argc, argv, "d:i:n:o:s:t:p:vh")) != -1) {
@@ -62,10 +69,10 @@ int main(int argc, char *argv[]) {
                 cout << "SnowCrash Version " << VERSION << endl;
                 return 0;
             case 'h':
-                cout << "Use -e to extract, -i to input, and -o to specify output, -s to specify seed, default is 20, -p to specify image density, default is 1." << endl;
+                cout << help << endl;
                 return 0;
             default:
-                cerr << "No required options specified" << endl;
+                cerr << "No required options specified. Please use -h to get help." << endl;
         }
     }
 
