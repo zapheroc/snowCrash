@@ -57,7 +57,7 @@ void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char
         randomPixelArray[i] = i;
     }
 
-    mt19937 engine(seed);
+    boost::mt19937 engine(seed);
     shuffle(randomPixelArray.begin(), randomPixelArray.end(), engine);
     //THIS IS THE PROBLEM, without if statement, it clipped to zero on extraction
     if (dataFileVector.size() > 0) {
