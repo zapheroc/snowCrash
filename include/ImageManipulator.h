@@ -17,7 +17,7 @@ class ImageManipulator
         ImageManipulator(std::string imageName);
         virtual ~ImageManipulator();
 
-        void extractSeededImage( std::string outputFile, long seed);
+        void extractSeededImage( std::string outputFile, std::seed_seq seed);
         void scaleImageForData( float fileSize );
         void createSnowCrash( std::string fileName, std::string outputName);
         void extractSnowCrash( std::string fileName, std::string outputFile);

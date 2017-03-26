@@ -22,7 +22,7 @@ class FileParser
         FileParser();
         virtual ~FileParser();
         float estimateImageSizeData( float ratioData );
-        void generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed);
+        void generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, std::seed_seq seed);
         void longToBytes(unsigned long n, unsigned char ar[sizeof(unsigned long)]);
         unsigned long bytesToLong(unsigned char n[sizeof(unsigned long)]);
        // void scaleImageForData( std::string imageName, float fileSize );

@@ -46,7 +46,7 @@ float FileParser::estimateImageSizeData( float ratioData = 1.0) {
     return (fileSize / ratioData) / 3;
 }
 
-void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, long seed ) {
+void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, seed_seq seed ) {
     using namespace cimg_library;
 
     unsigned long imgSize = img.size() - 1;

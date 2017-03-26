@@ -25,8 +25,10 @@ int main(int argc, char *argv[]) {
     string inputData = EMPTY_STRING;
     string outputFile = EMPTY_STRING;
     string extractFile = EMPTY_STRING;
+    string seedString = "password";
     int noiseType = 0;
-    long seed = 20;
+    seed_seq seed (seedString.begin(), seedString.end());
+    //long seed = 20;
     float percent = 1;
     double noise = 0;
     bool addNoise = false;
@@ -43,8 +45,9 @@ int main(int argc, char *argv[]) {
     while ((opt = getopt(argc, argv, "d:i:n:o:s:t:p:vh")) != -1) {
         switch (opt) {
             case 's':
-                seed = atoi(optarg);
-                cout << seed << " seed " << endl;
+                seedString = optarg; //atoi(optarg);
+                seed = seed_seq (seedString.begin(), seedString.end());
+                //cout << seedString << " seed " << endl;
                 break;
             case 'p':
                 percent = atof(optarg);
