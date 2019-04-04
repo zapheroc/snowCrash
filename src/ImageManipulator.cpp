@@ -47,7 +47,7 @@ void ImageManipulator::seedImage(vector<unsigned long> &randomPixelArray, vector
 }
 
 //This function will take an output file name, and a seed, and extract an image based on those inputs.
-void ImageManipulator::extractSeededImage(string outputFile, seed_seq seed) {
+void ImageManipulator::extractSeededImage(string outputFile, seed_seq &seed) {
     ofstream outData(outputFile, ios::binary);
     unsigned char *pixel = img.data();
 

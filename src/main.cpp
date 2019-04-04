@@ -8,6 +8,8 @@
 #include "FileParser.h"
 #include "ImageManipulator.h"
 #include <stdlib.h>
+#include "pcg_extras.hpp"
+
 
 using namespace std;
 
@@ -27,7 +29,8 @@ int main(int argc, char *argv[]) {
     string extractFile = EMPTY_STRING;
     string seedString = "password";
     int noiseType = 0;
-    seed_seq seed (seedString.begin(), seedString.end());
+    //pcg_extras::seed_seq_from<string> seed (seedString.begin(), seedString.end());
+    //std::seed_seq seed;
     //long seed = 20;
     float percent = 1;
     double noise = 0;
@@ -46,7 +49,6 @@ int main(int argc, char *argv[]) {
         switch (opt) {
             case 's':
                 seedString = optarg; //atoi(optarg);
-                seed = seed_seq (seedString.begin(), seedString.end());
                 //cout << seedString << " seed " << endl;
                 break;
             case 'p':
@@ -78,7 +80,8 @@ int main(int argc, char *argv[]) {
                 cerr << "No required options specified. Please use -h to get help." << endl;
         }
     }
-
+    std::seed_seq seed(seedString.begin(), seedString.end());
+    //std::seed_seq n(seedString.begin(), seedString.end());
     /* CHECK IF FILE ALREADY EXISTS TO PREVENT DESTROYING USERS FILES */
     ifstream does_exist(outputFile);
     if (does_exist) {

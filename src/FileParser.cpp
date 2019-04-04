@@ -1,5 +1,6 @@
 #include "FileParser.h"
 #include "CImg.h"
+#include "pcg_random.hpp"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ float FileParser::estimateImageSizeData( float ratioData = 1.0) {
     return (fileSize / ratioData) / 3;
 }
 
-void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, seed_seq seed ) {
+void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, seed_seq &seed ) {
     using namespace cimg_library;
 
     unsigned long imgSize = img.size() - 1;
@@ -62,9 +63,9 @@ void FileParser::generateRandomPixelArray(const cimg_library::CImg<unsigned char
     //boost::variate_generator<boost::mt19937&, boost::uniform_int<> > random_number_shuffler(engine, boost::uniform_int<>());
     //std::random_shuffle(randomPixelArray.begin(), randomPixelArray.end(), random_number_shuffler);
 
-    mt19937 engine(seed);
+    pcg64 engine(seed);
 
-    std::shuffle(randomPixelArray.begin(), randomPixelArray.end(), engine);
+    pcg_extras::shuffle(randomPixelArray.begin(), randomPixelArray.end(), engine);
 
     //THIS IS THE PROBLEM, without if statement, it clipped to zero on extraction
     if (dataFileVector.size() > 0) {
