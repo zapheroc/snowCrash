@@ -22,14 +22,12 @@
 
 using namespace std;
 
-//For pure extraction, and image is not needed as a parameter.
-ImageManipulator::ImageManipulator() {
-}
-
+// For data to image direct compression.
 ImageManipulator::ImageManipulator(cimg_library::CImg<unsigned char> &dummyImage) {
 	img = dummyImage;
 }
 
+// For loading and unloading data to and from an image.
 ImageManipulator::ImageManipulator(string imageName) {
 	img.load(imageName.c_str());
 }
@@ -66,6 +64,7 @@ void ImageManipulator::seedImage(vector<unsigned long> &randomPixelArray,
 	img.save_png(outputFile.c_str());
 }
 
+// TODO remove the FileParser reference from here. The ImageManipulator shouldn't touch the FileParser at all.
 void ImageManipulator::extractSeededImage(string outputFile, string seedString) {
 
 	ofstream outData(outputFile, ios::binary);
@@ -74,12 +73,12 @@ void ImageManipulator::extractSeededImage(string outputFile, string seedString) 
 
 	FileParser *fileExtractor = new FileParser;
 
-	fileExtractor->generateRandomPixelArray(img, seedString);
+	fileExtractor->generateRandomPixelIndicesArray(img.size(), seedString);
 
 	unsigned char* fileSizeAsArrayOfBytes = new unsigned char[fileExtractor->LONG_LENGTH];
 
 	for (int i = 0; i < fileExtractor->LONG_LENGTH; i++) {
-		fileSizeAsArrayOfBytes[i] = *(pixel + (fileExtractor->randomPixelArray.at(i)));
+		fileSizeAsArrayOfBytes[i] = *(pixel + (fileExtractor->randomPixelIndicesArray.at(i)));
 	}
 
 	unsigned long fileLength = fileExtractor->bytesToLong(fileSizeAsArrayOfBytes);
@@ -87,7 +86,7 @@ void ImageManipulator::extractSeededImage(string outputFile, string seedString) 
 
 	for (unsigned long pix = 0; pix < fileLength; pix++) {
 		outData
-				<< *(pixel + (fileExtractor->randomPixelArray.at(pix + fileExtractor->LONG_LENGTH)));
+				<< *(pixel + (fileExtractor->randomPixelIndicesArray.at(pix + fileExtractor->LONG_LENGTH)));
 	}
 	delete[] fileSizeAsArrayOfBytes;
 }

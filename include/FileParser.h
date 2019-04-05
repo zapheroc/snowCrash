@@ -21,14 +21,14 @@
 #ifndef FILEPARSER_H
 #define FILEPARSER_H
 
-#include <algorithm> // for std::shuffle
+//#include <algorithm> // for std::shuffle
 #include <fstream> // for input and output streams
 #include <vector> // for vectors containing data
 #include <cmath> // for sqrt()
 #include <iostream>
 #include <random>
 
-#include "CImg.h"
+//#include "CImg.h"
 #include "pcg_random.hpp"
 
 class FileParser {
@@ -41,14 +41,11 @@ public:
 	// image size given the input data ratio.
 	float estimateImageSizeData(float ratioData);
 
+	// TODO Move this function into ImageManipulator.
 	// To place a data file into an image, an array of pixel indices is created, and shuffled using a PRNG.
 	// Bytes are then inserted at the indices of the shuffled array.
-	void generateRandomPixelArray(const cimg_library::CImg<unsigned char> &img, std::string seedString);
+	void generateRandomPixelIndicesArray(unsigned long imgSize, std::string seedString);
 
-	// To properly know the length of the file to extract, the file size must be embedded at the beginning of the snowCrash.
-	// This function takes an unsigned long which represents the file size, and converts it to bytes for writing to the snowCrash.
-	// Essentially, converts an unsigned long to an array of bytes.
-	void longToBytes(unsigned long n, unsigned char ar[sizeof(unsigned long)]);
 	// This does the opposite of longToBytes. It reads the first sizeof(unsigned long) bytes from a snowCrash and converts it
 	// to and unsigned long so that the program knows how many bytes to extract.
 	// Essentially, converts and array of bytes to an unsigned long.
@@ -62,11 +59,17 @@ public:
 	// The data byte array as read from a file.
 	std::vector<char> dataFileVector;
 
+	// TODO Move this variable into ImageManipulator.
 	// This array of pixel indices is shuffled, and bytes of data are inserted in the image at the indices of the shuffled array.
-	std::vector<unsigned long> randomPixelArray;
+	std::vector<unsigned long> randomPixelIndicesArray;
 
 	// The size of the total data file.
 	long fileSize = 0;
+private:
+	// To properly know the length of the file to extract, the file size must be embedded at the beginning of the snowCrash.
+	// This function takes an unsigned long which represents the file size, and converts it to bytes for writing to the snowCrash.
+	// Essentially, converts an unsigned long to an array of bytes.
+	void longToBytes(unsigned long n, unsigned char ar[sizeof(unsigned long)]);
 };
 
 #endif // FILEPARSER_H

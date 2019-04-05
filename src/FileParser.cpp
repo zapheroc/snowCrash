@@ -59,17 +59,16 @@ float FileParser::estimateImageSizeData(float ratioData = 1.0) {
 	}
 	return (fileSize / ratioData) / 3;
 }
+// TODO move this function to ImageManipulator, because it is image related.
+void FileParser::generateRandomPixelIndicesArray(unsigned long imgSize, string seedString) {
 
-void FileParser::generateRandomPixelArray(
-		const cimg_library::CImg<unsigned char> &img, string seedString) {
-	using namespace cimg_library;
-
-	unsigned long imgSize = img.size() - 1;
+	imgSize = imgSize - 1;
+	//unsigned long imgSize = img.size() - 1;
 	cout << "The image size for random generation is: " << imgSize << endl;
-	randomPixelArray.resize(imgSize);
+	randomPixelIndicesArray.resize(imgSize);
 
 	for (unsigned long i = 0; i < imgSize; i++) {
-		randomPixelArray[i] = i;
+		randomPixelIndicesArray[i] = i;
 	}
 
 	std::seed_seq seed(seedString.begin(), seedString.end());
@@ -78,13 +77,16 @@ void FileParser::generateRandomPixelArray(
 	// Outdated mt19937 engine was replaced with pcg library. Maybe more secure?
 	//mt19937 engine(seed);
 
-	pcg_extras::shuffle(randomPixelArray.begin(), randomPixelArray.end(),
+	pcg_extras::shuffle(randomPixelIndicesArray.begin(), randomPixelIndicesArray.end(),
 			engine);
 
+	// First shuffle every pixel possible. Then trim it down to the size of the data to put into the image,
+	// so that randimPixelArray is a list of indices of pixels the same size as the dataFile.
 	if (dataFileVector.size() > 0) {
-		randomPixelArray.resize(dataFileVector.size());
+		randomPixelIndicesArray.resize(dataFileVector.size());
 	}
 }
+
 
 void FileParser::longToBytes(unsigned long n,
 		unsigned char ar[sizeof(unsigned long)]) {

@@ -135,11 +135,11 @@ int main(int argc, char *argv[]) {
 		}
 
 		// Using the given image, and the provided seed, shuffle the array pixel indices in a reproducible but random manner.
-		fileData->generateRandomPixelArray(manipulator->img, seedString);
+		fileData->generateRandomPixelIndicesArray(manipulator->img.size(), seedString);
 
 		// Now that a random pixel array has been created, randomly insert bytes of data from the hidden file into random R, G, or B, elements
 		// of pixels.
-		manipulator->seedImage(fileData->randomPixelArray, fileData->dataFileVector, outputFile);
+		manipulator->seedImage(fileData->randomPixelIndicesArray, fileData->dataFileVector, outputFile);
 		return 0;
 	}
 
@@ -171,11 +171,11 @@ int main(int argc, char *argv[]) {
 
 		ImageManipulator *manipulator = new ImageManipulator(img);
 
-		fileData->generateRandomPixelArray(manipulator->img, seedString);
+		fileData->generateRandomPixelIndicesArray(manipulator->img.size(), seedString);
 
 		// By acting as if the dummy image was a loaded image, we can use the same extraction command
 		// to extract from all snowCrash images.
-		manipulator->seedImage(fileData->randomPixelArray, fileData->dataFileVector, outputFile);
+		manipulator->seedImage(fileData->randomPixelIndicesArray, fileData->dataFileVector, outputFile);
 
 		return 0;
 	} else {

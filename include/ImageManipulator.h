@@ -32,7 +32,7 @@
 
 class ImageManipulator {
 public:
-	ImageManipulator();
+
 	ImageManipulator(std::string imageName);
 	ImageManipulator(cimg_library::CImg<unsigned char> &dummyImage);
 
