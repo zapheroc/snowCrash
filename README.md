@@ -28,6 +28,9 @@ Useage:
 -n to specify amount of noise to autogenerate. Default is 0. 
 -t specify the type of noise. 0=gaussian, 1=uniform, 2=Salt and Pepper (default), 3=Poisson or 4=Rician.
 
-Example embedding file: snowCrash -d file.txt -i imageToHideIn.png -s coolpassword -o outputFile.png.
-Example extracting file: snowCrash -i hidden.png -s coolpassword -o outputFile.originalExtension.
-Example converting data straight to PNG: snowCrash -d file.txt -o outputFile.png
+Example embedding file: 
+ `snowCrash -d file.txt -i imageToHideIn.png -s coolpassword -o outputFile.png.`
+Example extracting file:
+`snowCrash -i hidden.png -s coolpassword -o outputFile.originalExtension.`
+Example converting data straight to PNG: 
+`snowCrash -d file.txt -o outputFile.png`
