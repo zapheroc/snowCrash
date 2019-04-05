@@ -37,6 +37,9 @@
 *.mp3
 *.opus
 
+# OSX Junk
+.DS_Store
+
 # Eclipse Files
 .metadata
 bin/
