@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 	bool addNoise = false;
 
 	string help =
-			"To extract, provide only an input and output, along with a seed.\nTo simply convert data to an image, provide only a data file and an output, along with a seed.\nUseage:  \n-i to specify input file. \n-o to specify output file. \n-d to specify data file to place into the image. \n-s to specify seed, default is \"password\". This can be any string. \
+			"To extract, provide only an input and output, along with a seed.\nTo simply convert data to an image, provide only a data file and an output, along with a seed.\nUsage:  \n-i to specify input file. \n-o to specify output file. \n-d to specify data file to place into the image. \n-s to specify seed, default is \"password\". This can be any string. \
                 \n-p to specify image density, default is 1. This must be between 0-1. \n-n to specify amount of noise to autogenerate. Default is 0. \n-t specify the type of noise. 0=gaussian, 1=uniform, 2=Salt and Pepper (default), 3=Poisson or 4=Rician.\n\nExample: snowCrash -d file.txt -i imageToHideIn.png -s coolpassword -o outputFile.png.";
 
 	if (argc == 1) {
