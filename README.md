@@ -1,11 +1,9 @@
 # **snowCrash**
 SnowCrash is a data to png converter. It can turn any file into a png, storing the data in the colors of the pixels. It also supports embedding data in existing images. You can stick a text file into a picture, for example. 
 
-A small binary data to png image converter, which will hopefully grow into something more complex.
-
 ## **Installation Steps**
 
-Clone the repository, and run the make script, either for linux or OSX. This should build snowCrash. There are some requirements, specifically libpng or imagemagic, and pthread are required. 
+Clone the repository, and run the compile script, either for linux or OSX. This should build snowCrash. There are some requirements, specifically libpng or imagemagic, and pthread are required. 
 
 ## *Security*
 

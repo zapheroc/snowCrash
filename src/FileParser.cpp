@@ -42,7 +42,7 @@ FileParser::FileParser(string fileName) {
 
 	fileSize = dataFileVector.size();
 
-	cout << "file size is: " << fileSize - LONG_LENGTH << endl;
+	cout << "file size is: " << fileSize - LONG_LENGTH << " bytes" << endl;
 	unsigned char fileSizeAsArrayOfBytes[LONG_LENGTH];
 	longToBytes(fileSize - LONG_LENGTH, fileSizeAsArrayOfBytes);
 	for (int i = 0; i < LONG_LENGTH; i++) {
@@ -64,7 +64,7 @@ void FileParser::generateRandomPixelIndicesArray(unsigned long imgSize, string s
 
 	imgSize = imgSize - 1;
 	//unsigned long imgSize = img.size() - 1;
-	cout << "The image size for random generation is: " << imgSize << endl;
+	cout << "The image size for random generation is: " << imgSize << " bytes" << endl;
 	randomPixelIndicesArray.resize(imgSize);
 
 	for (unsigned long i = 0; i < imgSize; i++) {
