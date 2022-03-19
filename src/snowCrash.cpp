@@ -1,7 +1,6 @@
 /*
  * A simple command line tool which allows data files to be converted to images, or hidden within other images.
  *
- *  Copyright 2017 Anon
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +28,7 @@
 
 using namespace std;
 
-const string VERSION = "2.0";
+const string VERSION = "2.1";
 const string EMPTY_STRING = "//empty\\";
 
 int main(int argc, char *argv[]) {
@@ -146,7 +145,7 @@ int main(int argc, char *argv[]) {
 //	With only input and output, assume extraction
 	else if (inputImage != EMPTY_STRING && outputFile != EMPTY_STRING) {
 
-		cout << "Extracting file from input image." << endl;
+		cout << "Extracting file from input image" << endl;
 
 		// Create in image manipulator which will load the image based on the given string and read from it appropriately.
 		ImageManipulator *extractor = new ImageManipulator(inputImage);
@@ -157,7 +156,7 @@ int main(int argc, char *argv[]) {
 	}
 //	With only input data and an output file, just compress the input data to a png.
 	else if (inputData != EMPTY_STRING && outputFile != EMPTY_STRING) {
-		cout << "Compressing data straight to png." << endl;
+		cout << "Compressing data straight to png" << endl;
 
 		FileParser *fileData = new FileParser(inputData);
 

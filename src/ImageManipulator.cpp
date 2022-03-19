@@ -54,13 +54,13 @@ void ImageManipulator::seedImage(vector<unsigned long> &randomPixelArray,
 		vector<char> &dataFileVector, string outputFile) {
 
 	unsigned char *pixel = img.data();
-	cout << "Scaled image size: " << img.size() << " File to embed size: " << dataFileVector.size()
-			<< endl;
+	cout << "Scaled image size: " << img.size() << " bytes. File to embed size: " << dataFileVector.size()
+			<< " bytes" << endl;
 	for (unsigned int i = 0; i < dataFileVector.size(); i++) {
 		*(pixel + randomPixelArray.at(i)) = dataFileVector.at(i);
 	}
 
-	cout << "Seeding loop finished. Saving file as png." << endl;
+	cout << "Seeding loop finished. Saving file as png" << endl;
 	img.save_png(outputFile.c_str());
 }
 
