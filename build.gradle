@@ -8,15 +8,17 @@ application {
             machines.macOS.x86_64,
             machines.linux.x86_64
     ]
+
+
     binaries.configureEach {
-        linkTask.get().linkerArgs.add("-std=c++17")
+
         linkTask.get().linkerArgs.add("-lX11")
-        linkTask.get().linkerArgs.add("-lz")
-        linkTask.get().linkerArgs.add("-lpng")
-        linkTask.get().linkerArgs.add("-lpthread")
     }
 }
-
+tasks.withType(CppCompile).configureEach { 
+    compilerArgs.add '-Wall'
+    compilerArgs.add '-std=c++17'
+}
 
 
 
